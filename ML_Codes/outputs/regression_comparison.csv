@@ -1,6 +1,6 @@
-Model,Feature Set,MAE,RMSE,R2,Time(s),R²,Training Time (s)
-LSTM,,27.9,38.88,,,0.403,48.2
-XGBoost,Full,37.67,49.58,0.033,1.4,,
-Random Forest,Full,39.2,50.18,0.009,0.6,,
-Ridge Regression (baseline),Meteo only,43.52,53.13,-0.111,0.0,,
-Linear Regression (baseline),Meteo only,43.52,53.14,-0.111,0.0,,
+Model,Feature Set,MAE,RMSE,R2,Time(s)
+Linear Regression (baseline),Meteo (3 vars),43.88,58.71,0.019,0.0
+Ridge Regression (baseline),Meteo (6 vars),38.65,53.05,0.199,0.0
+LSTM,PM2.5 time series,27.91,38.95,0.402,45.4
+Random Forest,Full (19 vars),23.84,38.02,0.589,0.5
+XGBoost,Full (19 vars),23.47,35.88,0.634,1.0

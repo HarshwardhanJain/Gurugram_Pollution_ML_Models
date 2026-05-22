@@ -1,5 +1,5 @@
-,PM2.5 (µg/m³),PM10 (µg/m³),NO2 (µg/m³),CO (mg/m³),LST_C,WS (m/s),RH (%),AT (°C)
-Low Pollution (Monsoon),59.3,96.45,21.14,1.04,,0.92,,
-Moderate Pollution,189.32,300.72,21.28,3.49,,0.84,88.62,
-Severe Pollution (Winter),278.44,543.14,21.14,3.48,,0.92,80.02,
-High Pollution (Post-Monsoon),101.01,155.46,20.8,3.35,,0.96,,
+,PM2.5 (µg/m³),NO2 (µg/m³),CO (mg/m³),WS (m/s),RH (%),month,season_enc
+Severe Pollution (Winter),179.99,41.94,2.45,0.72,74.8,9.2,1.19
+Moderate Pollution,86.89,26.62,1.46,0.72,53.44,3.23,0.66
+High Pollution (Post-Monsoon),70.53,20.88,1.18,0.69,68.2,8.77,2.16
+Low Pollution (Monsoon),48.61,23.09,1.02,1.46,66.83,6.0,1.4
