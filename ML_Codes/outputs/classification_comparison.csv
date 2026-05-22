@@ -1,0 +1,4 @@
+Model,Accuracy,Precision (W),Recall (W),F1-Score (W),Training Time (s)
+Random Forest,0.627,0.606,0.627,0.605,0.5
+XGBoost,0.599,0.579,0.599,0.578,2.8
+Logistic Regression,0.404,0.453,0.404,0.419,0.0
