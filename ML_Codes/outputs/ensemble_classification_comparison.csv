@@ -1,0 +1,12 @@
+Model,Accuracy,Precision (W),Recall (W),F1-Score (W)
+RF (individual),0.627,0.603,0.627,0.593
+XGBoost (individual),0.616,0.597,0.616,0.596
+RF + XGBoost [soft],0.616,0.593,0.616,0.592
+RF + XGBoost [wtd],0.616,0.593,0.616,0.592
+Logistic + RF + XGBoost [soft],0.61,0.59,0.61,0.579
+Logistic + RF + XGBoost [wtd],0.61,0.583,0.61,0.58
+Logistic + XGBoost [wtd],0.605,0.578,0.605,0.574
+Logistic + RF [wtd],0.602,0.55,0.602,0.558
+Logistic + XGBoost [soft],0.602,0.574,0.602,0.57
+Logistic + RF [soft],0.59,0.54,0.59,0.547
+Logistic (individual),0.48,0.404,0.48,0.422

@@ -1,0 +1,27 @@
+Model,MAE,RMSE,R2
+XGBoost (individual),23.47,35.88,0.634
+Linear + XGBoost [wtd],23.6,36.05,0.63
+RF + XGBoost [wtd],23.06,36.39,0.623
+RF + XGBoost [avg],23.06,36.43,0.622
+Linear + RF + XGBoost [wtd],23.15,36.5,0.621
+Ridge + RF + XGBoost [wtd],24.15,37.52,0.6
+Linear + Ridge + RF + XGBoost [wtd],24.3,37.65,0.597
+Ridge + XGBoost [wtd],25.2,37.88,0.592
+RF (individual),23.84,38.03,0.589
+Linear + Ridge + XGBoost [wtd],25.43,38.12,0.587
+Linear + RF [wtd],24.07,38.25,0.584
+Ridge + RF + XGBoost [avg],26.77,39.9,0.547
+Ridge + RF [wtd],26.32,40.13,0.542
+Linear + Ridge + RF [wtd],26.59,40.37,0.536
+Linear + RF + XGBoost [avg],28.04,40.9,0.524
+Ridge + XGBoost [avg],29.0,41.86,0.501
+Linear + Ridge + RF + XGBoost [avg],30.15,43.21,0.469
+Ridge + RF [avg],29.99,43.47,0.462
+Linear + XGBoost [avg],31.16,43.78,0.455
+Linear + RF [avg],31.95,45.45,0.412
+Linear + Ridge + XGBoost [avg],32.99,46.17,0.394
+Linear + Ridge + RF [avg],33.65,47.34,0.362
+Ridge (individual),38.65,53.05,0.199
+Linear + Ridge [wtd],38.78,53.22,0.194
+Linear + Ridge [avg],40.31,54.9,0.143
+Linear (individual),43.88,58.71,0.019

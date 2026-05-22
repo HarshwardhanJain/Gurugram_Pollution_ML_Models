@@ -99,6 +99,30 @@ Run in order starting from `01`. Each notebook saves its outputs to `ML_Codes/ou
 9. Cluster profile heatmap (row-normalized feature centroids)
 10. Stacked bar chart of cluster distribution by month (2020–2024)
 
+### 07 — Ensemble Model Combinations
+
+Tests all possible pairwise, triple, and full-group combinations of trained models — separately for regression and classification.
+
+**Regression combinations (4 models — Linear, Ridge, RF, XGBoost):**
+
+1. Reproduce the same feature sets and `random_state=42` split as notebook 03
+2. Retrain all 4 regressors with identical hyperparameters
+3. Generate all C(4,2)=6 pairs + C(4,3)=4 triples + C(4,4)=1 quad = 11 combinations
+4. Evaluate each with two strategies: **[avg]** simple average and **[wtd]** weighted average (weights ∝ individual R²)
+5. Save all 26 rows (4 individual + 22 ensemble) to `ensemble_regression_comparison.csv`
+6. Plot horizontal bar chart of R² for all combinations, coloured by strategy
+
+**Classification combinations (3 models — Logistic, RF, XGBoost):**
+
+1. Reproduce the same feature set and `random_state=42` stratified split as notebook 04
+2. Retrain all 3 classifiers with identical hyperparameters
+3. Generate all C(3,2)=3 pairs + C(3,3)=1 triple = 4 combinations
+4. Evaluate each with two strategies: **[soft]** simple soft voting and **[wtd]** weighted soft voting (weights ∝ individual accuracy)
+5. Save all 11 rows (3 individual + 8 ensemble) to `ensemble_classification_comparison.csv`
+6. Plot horizontal bar chart of accuracy for all combinations
+
+**Summary:** Print best ensemble vs best individual for both tasks
+
 ---
 
 ## Results
@@ -145,6 +169,68 @@ K-Means applied to PM2.5, NO2, CO, wind speed, and relative humidity. Clusters m
 | Severe Pollution (Winter) | 179.99 | 41.94 | 2.45 | 0.72 | 74.80 |
 
 Winter stagnation produces PM2.5 concentrations 3.7× higher than the monsoon cluster, driven by low wind speeds, temperature inversions, and increased CO from biomass burning.
+
+---
+
+## Ensemble Model Combinations (Notebook 07)
+
+All C(n,2) pairs, C(n,3) triples, and the full group evaluated with two strategies:
+
+- **[avg]** Simple average of predictions / probabilities
+- **[wtd]** Weighted average — weights proportional to individual R² (regression) or accuracy (classification); near-zero R² models get near-zero weight automatically
+
+### Regression Ensembles — All Combinations (sorted by R²)
+
+| Model | MAE | RMSE | R² |
+|---|---|---|---|
+| **XGBoost (individual)** | **23.47** | **35.88** | **0.634** |
+| Linear + XGBoost [wtd] | 23.60 | 36.05 | 0.630 |
+| RF + XGBoost [wtd] | 23.06 | 36.39 | 0.623 |
+| RF + XGBoost [avg] | 23.06 | 36.43 | 0.622 |
+| Linear + RF + XGBoost [wtd] | 23.15 | 36.50 | 0.621 |
+| Ridge + RF + XGBoost [wtd] | 24.15 | 37.52 | 0.600 |
+| Linear + Ridge + RF + XGBoost [wtd] | 24.30 | 37.65 | 0.597 |
+| Ridge + XGBoost [wtd] | 25.20 | 37.88 | 0.592 |
+| RF (individual) | 23.84 | 38.03 | 0.589 |
+| Linear + Ridge + XGBoost [wtd] | 25.43 | 38.12 | 0.587 |
+| Linear + RF [wtd] | 24.07 | 38.25 | 0.584 |
+| Ridge + RF + XGBoost [avg] | 26.77 | 39.90 | 0.547 |
+| Ridge + RF [wtd] | 26.32 | 40.13 | 0.542 |
+| Linear + Ridge + RF [wtd] | 26.59 | 40.37 | 0.536 |
+| Linear + RF + XGBoost [avg] | 28.04 | 40.90 | 0.524 |
+| Ridge + XGBoost [avg] | 29.00 | 41.86 | 0.501 |
+| Linear + Ridge + RF + XGBoost [avg] | 30.15 | 43.21 | 0.469 |
+| Ridge + RF [avg] | 29.99 | 43.47 | 0.462 |
+| Linear + XGBoost [avg] | 31.16 | 43.78 | 0.455 |
+| Linear + RF [avg] | 31.95 | 45.45 | 0.412 |
+| Linear + Ridge + XGBoost [avg] | 32.99 | 46.17 | 0.394 |
+| Linear + Ridge + RF [avg] | 33.65 | 47.34 | 0.362 |
+| Ridge (individual) | 38.65 | 53.05 | 0.199 |
+| Linear + Ridge [wtd] | 38.78 | 53.22 | 0.194 |
+| Linear + Ridge [avg] | 40.31 | 54.90 | 0.143 |
+| Linear (individual) | 43.88 | 58.71 | 0.019 |
+
+**Finding:** XGBoost alone (R²=0.634) is the best regression model — no ensemble surpasses it. Weighted combinations that include XGBoost come closest (R²=0.630). Simple averaging consistently underperforms weighted averaging. Ensembles that include the weak Linear baseline are dragged down significantly when using [avg] but recover with [wtd] weighting.
+
+---
+
+### Classification Ensembles — All Combinations (sorted by Accuracy)
+
+| Model | Accuracy | Precision (W) | Recall (W) | F1-Score (W) |
+|---|---|---|---|---|
+| **RF (individual)** | **0.627** | **0.603** | **0.627** | **0.593** |
+| XGBoost (individual) | 0.616 | 0.597 | 0.616 | 0.596 |
+| RF + XGBoost [soft] | 0.616 | 0.593 | 0.616 | 0.592 |
+| RF + XGBoost [wtd] | 0.616 | 0.593 | 0.616 | 0.592 |
+| Logistic + RF + XGBoost [soft] | 0.610 | 0.590 | 0.610 | 0.579 |
+| Logistic + RF + XGBoost [wtd] | 0.610 | 0.583 | 0.610 | 0.580 |
+| Logistic + XGBoost [wtd] | 0.605 | 0.578 | 0.605 | 0.574 |
+| Logistic + RF [wtd] | 0.602 | 0.550 | 0.602 | 0.558 |
+| Logistic + XGBoost [soft] | 0.602 | 0.574 | 0.602 | 0.570 |
+| Logistic + RF [soft] | 0.590 | 0.540 | 0.590 | 0.547 |
+| Logistic (individual) | 0.480 | 0.404 | 0.480 | 0.422 |
+
+**Finding:** Random Forest alone (Accuracy=0.627) is the best classifier — no ensemble surpasses it. RF + XGBoost ensembles tie XGBoost individual at 0.616 but do not beat RF. Weighted soft voting consistently outperforms simple soft voting when the Logistic baseline is included.
 
 ---
 
